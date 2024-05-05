@@ -17,7 +17,11 @@ class LocationLogFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'bus_id' => \App\Models\Bus::factory(),
+            'latitude' => $this->faker->word,
+            'longitude' => $this->faker->word,
+            'speed' => $this->faker->word,
+            'battery' => $this->faker->word,
         ];
     }
 }
