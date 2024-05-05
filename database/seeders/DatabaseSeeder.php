@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+        // Roles
+        $this->call(RoleSeeder::class);
+
         // Admin
          $user = \App\Models\User::factory()->create([
              'name' => 'Administrator',
