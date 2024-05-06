@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('location_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bus_id')->constrained()->onDelete('cascade');
+            $table->string('location')->nullable();
             $table->string('latitude');
             $table->string('longitude');
             $table->string('speed')->nullable();
             $table->string('battery')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

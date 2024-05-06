@@ -13,7 +13,9 @@ class BusController extends Controller
      */
     public function index()
     {
-        //
+        return view('buses', [
+            'buses' => Bus::all(),
+        ]);
     }
 
     /**
@@ -37,8 +39,21 @@ class BusController extends Controller
      */
     public function show(Bus $bus)
     {
-        //
+        return view('show-bus', [
+            'bus' => $bus->load('locationLogs'),
+        ]);
     }
+
+    /**
+     * Display the live location of the bus.
+     */
+    public function location(Bus $bus)
+    {
+        return view('map', [
+            'bus' => $bus->load('locationLogs'),
+        ]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

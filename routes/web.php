@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,17 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+// bus show route
+Route::get('/buses', 'App\Http\Controllers\BusController@index')->name('buses.index');
+// show individual bus
+Route::get('/buses/{bus}', 'App\Http\Controllers\BusController@show')->name('bus.show');
+// live location
+Route::get('/buses/{bus}/location', 'App\Http\Controllers\BusController@location')->name('bus.location');
+
+// logout route
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+

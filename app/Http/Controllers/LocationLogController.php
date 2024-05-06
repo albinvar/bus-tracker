@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LocationLog;
 use App\Http\Requests\StoreLocationLogRequest;
 use App\Http\Requests\UpdateLocationLogRequest;
+use Illuminate\Http\Request;
 
 class LocationLogController extends Controller
 {
@@ -27,9 +28,28 @@ class LocationLogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLocationLogRequest $request)
+    public function store(Request $request)
     {
-        //
+        // validate the request
+        $data = $request->validate([
+            'bus_id' => 'required|exists:buses,id',
+            'location' => 'nullable',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'speed' => 'nullable',
+            'battery' => 'nullable',
+        ]);
+
+        // retrieve the location from latitude and longitude
+        $data['location'] = $this->getLocation($data['latitude'], $data['longitude']);
+
+        // create a new location log
+        $locationLog = LocationLog::create($data);
+
+        // return the location log
+        return response()->json($locationLog);
+
+
     }
 
     /**
@@ -62,5 +82,22 @@ class LocationLogController extends Controller
     public function destroy(LocationLog $locationLog)
     {
         //
+    }
+
+    /**
+     * Get the location from latitude and longitude.
+     */
+    private function getLocation($latitude, $longitude)
+    {
+        // get the location from latitude and longitude
+        $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude";
+
+        // use http client to make the request
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', $url);
+        $data = json_decode($response->getBody(), true);
+
+        // return the location
+        return $data['name'] . ', ' . $data['address']['village'];
     }
 }
