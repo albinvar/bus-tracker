@@ -37,11 +37,14 @@ class LocationLogController extends Controller
             'latitude' => 'required',
             'longitude' => 'required',
             'speed' => 'nullable',
+            'address' => 'nullable',
             'battery' => 'nullable',
         ]);
 
         // retrieve the location from latitude and longitude
-        $data['location'] = $this->getLocation($data['latitude'], $data['longitude']);
+        $res = $this->getLocation($data['latitude'], $data['longitude']);
+        $data['location'] = $res['location'];
+        $data['address'] = $res['address'];
 
         // create a new location log
         $locationLog = LocationLog::create($data);
@@ -87,7 +90,7 @@ class LocationLogController extends Controller
     /**
      * Get the location from latitude and longitude.
      */
-    private function getLocation($latitude, $longitude)
+    private function getLocation($latitude, $longitude): array
     {
         // get the location from latitude and longitude
         $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude";
@@ -97,7 +100,10 @@ class LocationLogController extends Controller
         $response = $client->request('GET', $url);
         $data = json_decode($response->getBody(), true);
 
-        // return the location
-        return $data['name'] . ', ' . $data['address']['village'];
+        // return the location as an array
+        return [
+            'location' => (!empty($data['name']) ? $data['name'] . ', ' : '') . ($data['address']['village'] ?? $data['address']['town'] ?? $data['address']['city'] ?? $data['address']['county'] ?? $data['address']['state'] ?? $data['address']['country'] ?? ''),
+            'address' => $data['display_name'],
+        ];
     }
 }

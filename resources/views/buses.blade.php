@@ -3,11 +3,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg mx-3 rounded-lg">
                 <div class="p-6 sm:px-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                    <div class="flex justify-between">
+                    <div class="flex justify-between mb-6">
                         <h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-white">
                             Buses
                         </h2>
-                        <a href="" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Bus</a>
                     </div>
 
                     <!-- Card Section -->
