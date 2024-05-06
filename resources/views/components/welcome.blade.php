@@ -101,7 +101,7 @@
             <!-- Card Section -->
             <div class="max-w-5xl  py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
                 <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-neutral-200">
-                    Need help?
+                    Welcome to Bus Tracking System
                 </h2>
                 <p class="mt-1 text-gray-500 dark:text-neutral-500">
                     We're always here to help. If you can't find the answer you need, feel free to reach out to us.
@@ -117,10 +117,10 @@
 
                                 <div class="grow ms-5">
                                     <h3 class="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
-                                        Ask our community
+                                       Live Track Your Bus
                                     </h3>
                                     <p class="text-sm text-gray-500 dark:text-neutral-500">
-                                        Get help from 40k+ Preline users
+                                        Track your bus in real-time
                                     </p>
                                 </div>
                             </div>
@@ -136,10 +136,10 @@
 
                                 <div class="grow ms-5">
                                     <h3 class="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
-                                        Get help in the app
+                                        Consistent Updates
                                     </h3>
                                     <p class="text-sm text-gray-500 dark:text-neutral-500">
-                                        Just head to «Help» in the app
+                                        Get consistent updates on your bus
                                     </p>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
 
                                 <div class="grow ms-5">
                                     <h3 class="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
-                                        Email us
+                                        Contact Us
                                     </h3>
                                     <p class="text-sm text-gray-500 dark:text-neutral-500">
                                         Reach us at <span class="text-blue-600 decoration-2 group-hover:underline font-medium dark:text-blue-500">info@site.com</span>
