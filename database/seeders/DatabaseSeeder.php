@@ -90,42 +90,42 @@ class DatabaseSeeder extends Seeder
         );
 
         // Location logs for Changanashery Bus almost 4 logs
-        $data = $this->getLocation('9.5994', '76.5289');
+        $data = $this->getLocation('9.5860236', '76.9804864');
         \App\Models\LocationLog::factory()->create(
             [
                 'bus_id' => 1,
                 'location' => $data['location'],
                 'address' => $data['address'],
-                'latitude' => '9.5994',
-                'longitude' => '76.5289',
+                'latitude' => '9.5860236',
+                'longitude' => '76.9804864',
                 'speed' => '60',
                 'battery' => '100',
             ]
         );
 
-        $data = $this->getLocation('9.5995', '76.5290');
+        $data = $this->getLocation('9.60895012', '77.16969557');
         \App\Models\LocationLog::factory()->create(
             [
                 'bus_id' => 1,
                 'location' => $data['location'],
                 'address' => $data['address'],
-                'latitude' => '9.5995',
-                'longitude' => '76.5290',
-                'speed' => '50',
-                'battery' => '90',
+                'latitude' => '9.60895012',
+                'longitude' => '77.16969557',
+                'speed' => '40',
+                'battery' => '80',
             ]
         );
 
-        $data = $this->getLocation('9.5996', '76.5291');
+        $data = $this->getLocation('9.553395650', '76.7901621');
         \App\Models\LocationLog::factory()->create(
             [
                 'bus_id' => 1,
                 'location' => $data['location'],
                 'address' => $data['address'],
-                'latitude' => '9.5996',
-                'longitude' => '76.5291',
-                'speed' => '40',
-                'battery' => '80',
+                'latitude' => '9.553395650',
+                'longitude' => '76.7901621',
+                'speed' => '50',
+                'battery' => '90',
             ]
         );
 
@@ -141,6 +141,33 @@ class DatabaseSeeder extends Seeder
                 'battery' => '70',
             ]
         );
+
+        $data = $this->getLocation('9.5695160', '76.639991');
+        \App\Models\LocationLog::factory()->create(
+            [
+                'bus_id' => 1,
+                'location' => $data['location'],
+                'address' => $data['address'],
+                'latitude' => '9.5695160',
+                'longitude' => '76.639991',
+                'speed' => '30',
+                'battery' => '70',
+            ]
+        );
+
+        $data = $this->getLocation('9.33178146', '76.5418409');
+        \App\Models\LocationLog::factory()->create(
+            [
+                'bus_id' => 1,
+                'location' => $data['location'],
+                'address' => $data['address'],
+                'latitude' => '9.33178146',
+                'longitude' => '76.5418409',
+                'speed' => '30',
+                'battery' => '70',
+            ]
+        );
+
 
         $data = $this->getLocation('9.5998', '76.5293');
         // Location logs for Mavelikara Bus almost 4 logs
@@ -198,19 +225,26 @@ class DatabaseSeeder extends Seeder
     }
 
     private function getLocation($latitude, $longitude): array
-    {
-        // get the location from latitude and longitude
-        $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude";
+{
+    // Throttle: wait 1 second between requests
+    sleep(2);
 
-        // use http client to make the request
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', $url);
-        $data = json_decode($response->getBody(), true);
+    $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude";
 
-        // return the location as an array
-        return [
-            'location' => (!empty($data['name']) ? $data['name'] . ', ' : '') . ($data['address']['village'] ?? $data['address']['town'] ?? $data['address']['city'] ?? $data['address']['county'] ?? $data['address']['state'] ?? $data['address']['country'] ?? ''),
-            'address' => $data['display_name'],
-        ];
-    }
+    $client = new \GuzzleHttp\Client([
+        'headers' => [
+            'User-Agent' => 'BusTrackerApp/1.0 (admin@example.com)',
+        ]
+    ]);
+
+    $response = $client->request('GET', $url);
+
+    $data = json_decode($response->getBody(), true);
+
+    return [
+        'location' => (!empty($data['name']) ? $data['name'] . ', ' : '') . ($data['address']['village'] ?? $data['address']['town'] ?? $data['address']['city'] ?? $data['address']['county'] ?? $data['address']['state'] ?? $data['address']['country'] ?? ''),
+        'address' => $data['display_name'],
+    ];
+}
+
 }
